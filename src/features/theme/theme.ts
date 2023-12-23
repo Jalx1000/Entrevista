@@ -14,9 +14,9 @@ interface TokensLight {
 
 export const tokensDark: TokensDark = {
   grey: {
-    0: "#ffffff", // manually adjusted
-    10: "#f6f6f6", // manually adjusted
-    50: "#f0f0f0", // manually adjusted
+    0: "#ffffff",
+    10: "#f6f6f6",
+    50: "#f0f0f0",
     100: "#e0e0e0",
     200: "#c2c2c2",
     300: "#a3a3a3",
@@ -26,7 +26,7 @@ export const tokensDark: TokensDark = {
     700: "#3d3d3d",
     800: "#292929",
     900: "#141414",
-    1000: "#000000", // manually adjusted
+    1000: "#000000",
   },
   primary: {
     0: "##07f9a2",
@@ -44,8 +44,8 @@ export const tokensDark: TokensDark = {
     1000: "#0c5149",
   },
   secondary: {
-    0: "#f0f3f7", // ajustado manualmente
-    100: "#d1d7e1", // ajustado manualmente
+    0: "#f0f3f7",
+    100: "#d1d7e1",
     200: "#b2b9cd",
     300: "#939bad",
     400: "#747b99",
