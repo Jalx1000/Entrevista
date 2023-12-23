@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   TextField,
   Button,
@@ -10,24 +10,32 @@ import {
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { resetFormData, updateFormData } from "../../features/form/formSlice"
 import { RootState } from "../../app/store"
+import { v4 as uuid } from "uuid"
 
 function SolicitudTarjetas() {
   const dispatch = useAppDispatch()
-  const formData = useAppSelector((state: RootState) => state.form.formData)
+  const formData = useAppSelector((state: RootState) => state.form)
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    fieldName: keyof typeof formData,
-  ) => {
-    dispatch(updateFormData({ ...formData, [fieldName]: e.target.value }))
+  const [task, setTask] = useState({
+    nombre: "",
+    ci: "",
+    email: "",
+    cell: "",
+  })
+
+  const handleChange = (e) => {
+    setTask({
+      ...task,
+      [e.target.name]: e.target.value,
+    })
+    console.log(task)
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     console.log("Formulario enviado:", formData)
-    dispatch(resetFormData())
+    dispatch(updateFormData({ ...task, id: uuid() }))
   }
-
   return (
     <Container component="main" maxWidth="xs">
       <Paper
@@ -49,8 +57,9 @@ function SolicitudTarjetas() {
                 fullWidth
                 label="Nombre"
                 variant="outlined"
-                value={formData.nombre}
-                onChange={(e) => handleChange(e, "nombre")}
+                value={task.nombre}
+                name="nombre"
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -58,8 +67,9 @@ function SolicitudTarjetas() {
                 fullWidth
                 label="Documento de Identidad"
                 variant="outlined"
-                value={formData.documentoIdentidad}
-                onChange={(e) => handleChange(e, "documentoIdentidad")}
+                name="ci"
+                value={task.ci}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -67,18 +77,21 @@ function SolicitudTarjetas() {
                 fullWidth
                 label="Correo"
                 type="email"
+                name="email"
                 variant="outlined"
-                value={formData.correo}
-                onChange={(e) => handleChange(e, "correo")}
+                value={task.email}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 fullWidth
                 label="Teléfono"
+                type="number"
+                name="cell"
                 variant="outlined"
-                value={formData.telefono}
-                onChange={(e) => handleChange(e, "telefono")}
+                value={task.cell}
+                onChange={handleChange}
               />
             </Grid>
           </Grid>

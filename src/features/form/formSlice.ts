@@ -3,34 +3,32 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 interface FormData {
   id: number
   nombre: string
-  documentoIdentidad: string
-  correo: string
-  telefono: string
+  ci: string
+  email: string
+  cell: string
 }
 
-interface FormState {
-  formData: FormData
-}
-
-const initialState: FormState = {
-  formData: {
+const initialState: FormData[] = [
+  {
     id: 0,
     nombre: "",
-    documentoIdentidad: "",
-    correo: "",
-    telefono: "",
+    ci: "",
+    email: "",
+    cell: "",
   },
-}
+]
 
 const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
     updateFormData: (state, action: PayloadAction<FormData>) => {
-      state.formData = action.payload
+      state.push(action.payload)
     },
     resetFormData: (state) => {
-      state.formData = initialState.formData
+      // Restablece el formulario al estado inicial
+      state.length = 1
+      state[0] = initialState[0]
     },
   },
 })
