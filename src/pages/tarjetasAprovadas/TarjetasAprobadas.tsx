@@ -12,16 +12,17 @@ import {
   Paper,
   Button,
   useTheme,
+  TextField,
 } from "@mui/material"
-import { approveApplication } from "../../features/form/formSlice"
+import { AmountApproved } from "../../features/form/formSlice"
 
 function TarjetasSolicitadas() {
   const dispatch = useDispatch()
   const formData = useSelector((state: RootState) => state.form)
   const theme = useTheme()
 
-  const handleApprove = (id: number, check: boolean) => {
-    dispatch(approveApplication({ id, check }))
+  const handleAmountChange = (id: number, mount: number) => {
+    dispatch(AmountApproved({ id, mount }))
   }
 
   return (
@@ -34,6 +35,7 @@ function TarjetasSolicitadas() {
               <TableCell>Documento de Identidad</TableCell>
               <TableCell>Correo</TableCell>
               <TableCell>Teléfono</TableCell>
+              <TableCell>Monto Aprobado</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -45,10 +47,18 @@ function TarjetasSolicitadas() {
                     <TableCell>{data.ci}</TableCell>
                     <TableCell>{data.email}</TableCell>
                     <TableCell>{data.cell}</TableCell>
+                    <TableCell>
+                      {/* Utiliza TextField para el input */}
+                      <TextField
+                        value={data.mount ?? 0}
+                        onChange={(e) => {
+                          const newMountValue = parseFloat(e.target.value) || 0
+                          handleAmountChange(data.id, newMountValue)
+                        }}
+                      />
+                    </TableCell>
                   </TableRow>
                 )
-              } else {
-                return null // O puedes renderizar algo diferente o simplemente no renderizar nada
               }
             })}
           </TableBody>

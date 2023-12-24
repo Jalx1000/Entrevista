@@ -6,7 +6,8 @@ interface FormData {
   ci: string
   email: string
   cell: string
-  check?: number
+  check: number
+  mount: number
 }
 
 const initialState: FormData[] = [
@@ -17,6 +18,7 @@ const initialState: FormData[] = [
     email: "",
     cell: "",
     check: 0,
+    mount: 0,
   },
 ]
 
@@ -43,9 +45,23 @@ const formSlice = createSlice({
         state[index].check = check ? 1 : -1
       }
     },
+    AmountApproved: (
+      state,
+      action: PayloadAction<{ id: number; mount: number }>,
+    ) => {
+      const { id, mount } = action.payload
+      const index = state.findIndex((data) => data.id === id)
+      if (index !== -1) {
+        state[index].mount = mount
+      }
+    },
   },
 })
 
-export const { approveApplication, addApplication, resetFormData } =
-  formSlice.actions
+export const {
+  AmountApproved,
+  approveApplication,
+  addApplication,
+  resetFormData,
+} = formSlice.actions
 export default formSlice.reducer
