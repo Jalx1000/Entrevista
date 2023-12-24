@@ -8,7 +8,7 @@ import {
   Container,
 } from "@mui/material"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { resetFormData, updateFormData } from "../../features/form/formSlice"
+import { resetFormData, addApplication } from "../../features/form/formSlice"
 import { RootState } from "../../app/store"
 import { v4 as uuid } from "uuid"
 
@@ -34,7 +34,7 @@ function SolicitudTarjetas() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     console.log("Formulario enviado:", formData)
-    dispatch(updateFormData({ ...task, id: uuid() }))
+    dispatch(addApplication({ ...task, id: uuid(), check: 0 }))
   }
   return (
     <Container component="main" maxWidth="xs">

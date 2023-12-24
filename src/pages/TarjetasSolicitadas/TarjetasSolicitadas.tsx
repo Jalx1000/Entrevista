@@ -1,32 +1,69 @@
+// En TarjetasSolicitadas.tsx
 import React from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../app/store"
-import { Box } from "@mui/material"
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  useTheme,
+} from "@mui/material"
+import { approveApplication } from "../../features/form/formSlice"
 
 function TarjetasSolicitadas() {
-  // Accede al estado de Redux para obtener los datos del formulario
+  const dispatch = useDispatch()
   const formData = useSelector((state: RootState) => state.form)
+  const theme = useTheme()
 
-  // Renderiza los datos en el componente
+  const handleApprove = (id: number, check: boolean) => {
+    dispatch(approveApplication({ id, check }))
+  }
+
   return (
     <Box>
-      <div
-        className=""
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
-        {formData.map((data) => (
-          <div key={data.id} style={{ margin: "0 2.3rem" }}>
-            <p>Nombre: {data.nombre}</p>
-            <p>Documento de Identidad: {data.ci}</p>
-            <p>Correo: {data.email}</p>
-            <p>Teléfono: {data.cell}</p>
-          </div>
-        ))}
-      </div>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Nombre</TableCell>
+              <TableCell>Documento de Identidad</TableCell>
+              <TableCell>Correo</TableCell>
+              <TableCell>Teléfono</TableCell>
+              <TableCell>Acciones</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {formData.map((data) => (
+              <TableRow key={data.id}>
+                <TableCell>{data.nombre}</TableCell>
+                <TableCell>{data.ci}</TableCell>
+                <TableCell>{data.email}</TableCell>
+                <TableCell>{data.cell}</TableCell>
+                <TableCell>
+                  <Button
+                    sx={{ color: theme.palette.secondary[100] }}
+                    onClick={() => handleApprove(data.id, true)}
+                  >
+                    Aprobar
+                  </Button>
+                  <Button
+                    sx={{ color: theme.palette.secondary[100] }}
+                    onClick={() => handleApprove(data.id, false)}
+                  >
+                    Denegar
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   )
 }

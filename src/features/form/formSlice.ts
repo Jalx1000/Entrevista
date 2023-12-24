@@ -6,6 +6,7 @@ interface FormData {
   ci: string
   email: string
   cell: string
+  check?: number
 }
 
 const initialState: FormData[] = [
@@ -15,6 +16,7 @@ const initialState: FormData[] = [
     ci: "",
     email: "",
     cell: "",
+    check: 0,
   },
 ]
 
@@ -22,7 +24,7 @@ const formSlice = createSlice({
   name: "form",
   initialState,
   reducers: {
-    updateFormData: (state, action: PayloadAction<FormData>) => {
+    addApplication: (state, action: PayloadAction<FormData>) => {
       state.push(action.payload)
     },
     resetFormData: (state) => {
@@ -30,8 +32,20 @@ const formSlice = createSlice({
       state.length = 1
       state[0] = initialState[0]
     },
+    approveApplication: (
+      state,
+      action: PayloadAction<{ id: number; check: boolean }>,
+    ) => {
+      const { id, check } = action.payload
+      const index = state.findIndex((data) => data.id === id)
+      console.log(index, check ? 1 : -1)
+      if (index !== -1) {
+        state[index].check = check ? 1 : -1
+      }
+    },
   },
 })
 
-export const { updateFormData, resetFormData } = formSlice.actions
+export const { approveApplication, addApplication, resetFormData } =
+  formSlice.actions
 export default formSlice.reducer
