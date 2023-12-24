@@ -37,7 +37,7 @@ function SolicitudTarjetas() {
     dispatch(addApplication({ ...task, id: uuid(), check: 0 }))
   }
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" m="1.5rem 2.5rem" maxWidth="xs">
       <Paper
         elevation={3}
         sx={{

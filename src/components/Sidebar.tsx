@@ -57,7 +57,7 @@ function Sidebar({
   }, [pathname])
 
   return (
-    <Box>
+    <Box component="nav">
       <Drawer
         open={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}

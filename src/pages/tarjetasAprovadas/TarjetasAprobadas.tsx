@@ -26,7 +26,7 @@ function TarjetasSolicitadas() {
   }
 
   return (
-    <Box>
+    <Box m="1.5rem 2.5rem">
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

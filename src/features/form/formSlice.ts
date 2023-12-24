@@ -10,17 +10,7 @@ interface FormData {
   mount: number
 }
 
-const initialState: FormData[] = [
-  {
-    id: 0,
-    nombre: "",
-    ci: "",
-    email: "",
-    cell: "",
-    check: 0,
-    mount: 0,
-  },
-]
+const initialState: FormData[] = []
 
 const formSlice = createSlice({
   name: "form",
