@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react"
-import {
-  TextField,
-  Button,
-  Grid,
-  Paper,
-  Typography,
-  Container,
-} from "@mui/material"
+import React, { useState } from "react"
+import { TextField, Button, Grid, Typography, Box } from "@mui/material"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { resetFormData, addApplication } from "../../features/form/formSlice"
+import { addApplication } from "../../features/form/formSlice"
 import { RootState } from "../../app/store"
 import { v4 as uuid } from "uuid"
 
@@ -37,75 +30,65 @@ function SolicitudTarjetas() {
     dispatch(addApplication({ ...task, id: uuid(), check: 0 }))
   }
   return (
-    <Container component="main" m="1.5rem 2.5rem" maxWidth="xs">
-      <Paper
-        elevation={3}
-        sx={{
-          padding: 3,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography component="h1" variant="h5">
-          Ingresar Datos
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Nombre"
-                variant="outlined"
-                value={task.nombre}
-                name="nombre"
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Documento de Identidad"
-                variant="outlined"
-                name="ci"
-                value={task.ci}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Correo"
-                type="email"
-                name="email"
-                variant="outlined"
-                value={task.email}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Teléfono"
-                type="number"
-                name="cell"
-                variant="outlined"
-                value={task.cell}
-                onChange={handleChange}
-              />
-            </Grid>
+    <Box m="1.5rem 2.5rem" maxWidth="md">
+      <Typography component="h1" variant="h5">
+        INGRESAR DATOS
+      </Typography>
+      <form style={{ marginTop: "20px" }} onSubmit={handleSubmit}>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Nombre"
+              variant="outlined"
+              value={task.nombre}
+              name="nombre"
+              onChange={handleChange}
+            />
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Enviar
-          </Button>
-        </form>
-      </Paper>
-    </Container>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Documento de Identidad"
+              variant="outlined"
+              name="ci"
+              value={task.ci}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Correo"
+              type="email"
+              name="email"
+              variant="outlined"
+              value={task.email}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Teléfono"
+              type="number"
+              name="cell"
+              variant="outlined"
+              value={task.cell}
+              onChange={handleChange}
+            />
+          </Grid>
+        </Grid>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Enviar
+        </Button>
+      </form>
+    </Box>
   )
 }
 
